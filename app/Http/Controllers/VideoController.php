@@ -6,14 +6,45 @@ use App\Models\Video;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
- 
+use Illuminate\Support\Facades\Response;
+
 class VideoController extends Controller
 {
-    public function getVideoUploadForm()
-    {
-        return view('video-upload');
-    }
     
+    public function likeVideo(Request $request, string $id)
+   {
+        try {
+            $video_id = $request->route('videoId');
+            $video = Video::find($video_id);
+            $video->likes += 1;
+            $video->save();
+            return Response::json([
+                'data' => "succes"
+            ], 201); 
+        } catch (\Throwable $th) {
+            return Response::json([
+                'data' => "error"
+            ], 400);
+        }
+    }
+
+    public function dislikeVideo(Request $request, string $id)
+    {
+         try {
+             $video_id = $request->route('videoId');
+             $video = Video::find($video_id);
+             $video->dislikes += 1;
+             $video->save();
+             return Response::json([
+                 'data' => "succes"
+             ], 201); 
+         } catch (\Throwable $th) {
+             return Response::json([
+                 'data' => "error"
+             ], 400);
+         }
+     }
+
     public function uploadVideo(Request $request)
    {
         $validator = Validator::make($request->all(), [
@@ -45,4 +76,5 @@ class VideoController extends Controller
  
         return 'Unexpected error occured';
     }
+
 }

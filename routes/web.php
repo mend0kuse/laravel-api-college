@@ -8,5 +8,7 @@ Route::get('/', function () {
 });
 
 Route::post('video-upload', [ VideoController::class, 'uploadVideo' ])->name('store.video');
-Route::get('video-upload', [ VideoController::class, 'getVideoUploadForm' ])->name('get.video.upload');
+Route::post('likeVideo/{videoId}', [ VideoController::class, 'likeVideo' ])->name('video.like');
+Route::post('dislikeVideo/{videoId}', [ VideoController::class, 'dislikeVideo' ])->name('video.dislike');
+
 require __DIR__.'/auth.php';
