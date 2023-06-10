@@ -10,8 +10,25 @@ use Illuminate\Support\Facades\Response;
 
 class VideoController extends Controller
 {
+    public function getVideos(Request $request)
+   {
+        try {
+            $videos = Video::with('comments', 'user')->get();
+
+            return Response::json([
+                'data' => $videos
+            ], 201); 
+
+        } catch (\Throwable $th) {
+            report($th);
+            return Response::json([
+                'data' => "error"
+            ], 400);
+
+        }
+    }
     
-    public function likeVideo(Request $request, string $id)
+    public function likeVideo(Request $request)
    {
         try {
             $video_id = $request->route('videoId');
@@ -28,7 +45,7 @@ class VideoController extends Controller
         }
     }
 
-    public function dislikeVideo(Request $request, string $id)
+    public function dislikeVideo(Request $request)
     {
          try {
              $video_id = $request->route('videoId');

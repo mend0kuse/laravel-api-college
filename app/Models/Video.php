@@ -11,4 +11,14 @@ class Video extends Model
     protected $fillable = [
         'title', 'path','likes','dislikes','user_id'
     ];
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
