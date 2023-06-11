@@ -19,7 +19,9 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return 'Успешно';
+        return Response::json([
+            'data' => 'succefull'
+        ], 201);
     }
 
     /**

@@ -10,6 +10,7 @@ Route::get('/', function () {
 });
 
 Route::get('videos', [ VideoController::class, 'getVideos' ])->name('store.getVideos');
+Route::get('user-videos/{userId}', [ VideoController::class, 'getVideosByUserId' ])->name('store.getVideosByUserId');
 Route::post('video-upload', [ VideoController::class, 'uploadVideo' ])->name('store.video');
 Route::post('likeVideo/{videoId}', [ VideoController::class, 'likeVideo' ])->name('video.like');
 Route::post('dislikeVideo/{videoId}', [ VideoController::class, 'dislikeVideo' ])->name('video.dislike');

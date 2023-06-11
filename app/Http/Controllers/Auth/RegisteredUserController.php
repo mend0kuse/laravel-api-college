@@ -30,7 +30,9 @@ class RegisteredUserController extends Controller
         ]);
 
         if ($validated->fails()) {
-            return $validated->errors();
+            return Response::json([
+                'data' => $validated->errors()
+            ], 400);
         }
 
         $user = User::create([
@@ -44,7 +46,9 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return response()->noContent();
+        return Response::json([
+            'data' => 'succefull'
+        ], 201);
     }
 }
 
